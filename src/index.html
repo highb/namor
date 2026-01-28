@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Namor - Name Generator</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 2rem 1rem;
+      background: #fafafa;
+      color: #222;
+    }
+    h1 { margin-bottom: 0.25rem; }
+    .subtitle { color: #666; margin-bottom: 1.5rem; }
+    .controls {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .controls label { font-size: 0.9rem; color: #555; }
+    .controls input[type="range"] { width: 100px; }
+    button {
+      padding: 0.5rem 1.25rem;
+      font-size: 1rem;
+      border: 2px solid #222;
+      background: #222;
+      color: #fff;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover { background: #444; }
+    .names-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+    .names-list li {
+      font-size: 1.25rem;
+      padding: 0.4rem 0.75rem;
+      background: #fff;
+      border-radius: 4px;
+      border: 1px solid #e0e0e0;
+    }
+    #status { font-size: 0.85rem; color: #888; margin-top: 1rem; }
+  </style>
+</head>
+<body>
+  <h1>Namor</h1>
+  <p class="subtitle">Corpus-based pronounceable name generator</p>
+  <div class="controls">
+    <button id="generate">Generate Names</button>
+    <label>
+      Syllables: <span id="syl-val">2</span>
+      <input type="range" id="syllables" min="2" max="4" value="2" />
+    </label>
+  </div>
+  <ul class="names-list" id="names"></ul>
+  <p id="status"></p>
+  <script type="module" src="./main.ts"></script>
+</body>
+</html>
