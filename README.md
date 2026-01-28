@@ -2,7 +2,7 @@
 
 Corpus-based pronounceable name generator that runs entirely in the browser.
 
-**[Live Demo](https://highb.github.io/namor/)**
+**[Live Demo](https://highb.github.io/namor/)** | **[Download Standalone HTML](https://highb.github.io/namor/standalone.html)**
 
 ## How It Works
 
@@ -28,11 +28,49 @@ npm run dev
 
 ## Build
 
+### Vite app (GitHub Pages)
+
 ```bash
 npm run build
 ```
 
 Output goes to `dist/`. Deployed automatically to GitHub Pages on push to `main`.
+
+### Standalone HTML
+
+```bash
+npm run build:standalone
+```
+
+Produces a single `standalone.html` file (~11KB) with no external dependencies. This is a drop-in replacement for any existing name/noise generator widget — same UI controls (base syllables slider, noise range slider, click-to-copy results), but powered by the corpus-based algorithm.
+
+The build script (`scripts/build-standalone.ts`) imports the same `NameCorpus` and `syllabify` modules used by the main app, trains the corpus at build time, and inlines the pre-computed frequency tables (onsets, nuclei, codas, bigram transitions) as JSON directly into the HTML. At runtime, the standalone file only does weighted sampling and validation — no syllabification or corpus training happens in the browser.
+
+## Project Structure
+
+```
+namor/
+├── src/
+│   ├── syllabify.ts          # Syllable segmentation (onset/nucleus/coda)
+│   │                         # and sonority-based phonotactic validation
+│   ├── corpus.ts             # NameCorpus class — learns frequency tables
+│   │                         # and bigram transitions from training names
+│   ├── generator.ts          # NameGenerator — weighted sampling with
+│   │                         # reject/regenerate loop for invalid output
+│   ├── main.ts               # Vite app entry point (UI wiring)
+│   ├── index.html            # Vite app page
+│   └── data/
+│       └── names.json        # Training corpus (500+ names)
+├── scripts/
+│   └── build-standalone.ts   # Builds self-contained HTML with inlined
+│                             # pre-computed corpus data
+├── .github/workflows/
+│   └── deploy.yml            # GitHub Pages deployment via Actions
+├── vite.config.ts
+├── tsconfig.json
+├── THEORY.md                 # Linguistic background and references
+└── README.md
+```
 
 ## Sources for Further Reading
 

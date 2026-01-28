@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "build:standalone": "tsx scripts/build-standalone.ts > standalone.html"
   },
   "repository": {
     "type": "git",
@@ -21,6 +22,7 @@
   "homepage": "https://github.com/highb/namor#readme",
   "description": "",
   "devDependencies": {
+    "tsx": "^4.21.0",
     "typescript": "^5.9.3",
     "vite": "^7.3.1"
   }
