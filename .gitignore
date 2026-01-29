@@ -2,3 +2,5 @@ node_modules
 dist
 standalone.html
 scripts/baby-names.csv
+scripts/hombres.csv
+scripts/mujeres.csv

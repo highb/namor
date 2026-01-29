@@ -1,10 +1,13 @@
 import { NameCorpus } from "./corpus";
 import { NameGenerator } from "./generator";
-import names from "./data/names.json";
+import namesEn from "./data/names-en.json";
+import namesEs from "./data/names-es.json";
 
-const corpus = new NameCorpus();
-corpus.learn(names);
-const generator = new NameGenerator(corpus);
+const datasets: Record<string, string[]> = { en: namesEn, es: namesEs };
+
+let corpus = new NameCorpus();
+corpus.learn(namesEn);
+let generator = new NameGenerator(corpus);
 
 const btn = document.getElementById("generate") as HTMLButtonElement;
 const list = document.getElementById("names") as HTMLUListElement;
@@ -12,9 +15,17 @@ const slider = document.getElementById("syllables") as HTMLInputElement;
 const sylVal = document.getElementById("syl-val") as HTMLSpanElement;
 const status = document.getElementById("status") as HTMLParagraphElement;
 const prefixInput = document.getElementById("prefix") as HTMLInputElement;
+const datasetSelect = document.getElementById("dataset") as HTMLSelectElement;
 
 slider.addEventListener("input", () => {
   sylVal.textContent = slider.value;
+});
+
+datasetSelect.addEventListener("change", () => {
+  corpus = new NameCorpus();
+  corpus.learn(datasets[datasetSelect.value]);
+  generator = new NameGenerator(corpus);
+  render();
 });
 
 function render(): void {
