@@ -93,7 +93,8 @@ namor/
 
 ### Training Corpora
 
-All 43 language corpora (`names-*.json`) are extracted from [MatthiasWinkelmann/firstname-database](https://github.com/MatthiasWinkelmann/firstname-database), a curated multinational first name database (GNU Free Documentation License).
+43 language corpora (`names-*.json`) are extracted from [MatthiasWinkelmann/firstname-database](https://github.com/MatthiasWinkelmann/firstname-database), a curated multinational first name database (GNU Free Documentation License).
+26 mythological names (`myth-*.json`) are extracted from [repushko/mythology_names_dataset](https://github.com/repushko/mythology_names_dataset), a curated mythological names database (CC0 1.0 Universal).
 
 ### Other Datasets and Tools
 
