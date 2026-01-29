@@ -42,6 +42,33 @@ import namesUk from "./data/names-uk.json";
 import namesVi from "./data/names-vi.json";
 import namesZh from "./data/names-zh.json";
 
+import mythAfrican from "./data/names-myth-african.json";
+import mythAboriginal from "./data/names-myth-aboriginal.json";
+import mythAztec from "./data/names-myth-aztec.json";
+import mythBaltic from "./data/names-myth-baltic.json";
+import mythBuddhist from "./data/names-myth-buddhist.json";
+import mythCeltic from "./data/names-myth-celtic.json";
+import mythEgyptian from "./data/names-myth-egyptian.json";
+import mythEtruscan from "./data/names-myth-etruscan.json";
+import mythFinnish from "./data/names-myth-finnish.json";
+import mythGreek from "./data/names-myth-greek.json";
+import mythHindu from "./data/names-myth-hindu.json";
+import mythJapanese from "./data/names-myth-japanese.json";
+import mythLithuanian from "./data/names-myth-lithuanian.json";
+import mythMaya from "./data/names-myth-maya.json";
+import mythMelanesian from "./data/names-myth-melanesian.json";
+import mythMesoamerican from "./data/names-myth-mesoamerican.json";
+import mythMesopotamian from "./data/names-myth-mesopotamian.json";
+import mythMideast from "./data/names-myth-mideast.json";
+import mythNativeamerican from "./data/names-myth-nativeamerican.json";
+import mythNorse from "./data/names-myth-norse.json";
+import mythOceanic from "./data/names-myth-oceanic.json";
+import mythPolynesian from "./data/names-myth-polynesian.json";
+import mythRoman from "./data/names-myth-roman.json";
+import mythSlavic from "./data/names-myth-slavic.json";
+import mythSouthamerican from "./data/names-myth-southamerican.json";
+import mythYoruba from "./data/names-myth-yoruba.json";
+
 export interface LangEntry {
   code: string;
   label: string;
@@ -141,6 +168,47 @@ export const REGIONS: RegionGroup[] = [
       { code: "zh", label: "Chinese" },
     ],
   },
+  {
+    name: "Ancient — Europe & Near East",
+    langs: [
+      { code: "myth-greek", label: "Greek" },
+      { code: "myth-roman", label: "Roman" },
+      { code: "myth-norse", label: "Norse" },
+      { code: "myth-celtic", label: "Celtic" },
+      { code: "myth-egyptian", label: "Egyptian" },
+      { code: "myth-etruscan", label: "Etruscan" },
+      { code: "myth-mesopotamian", label: "Mesopotamian" },
+      { code: "myth-mideast", label: "Middle Eastern" },
+      { code: "myth-slavic", label: "Slavic" },
+      { code: "myth-baltic", label: "Baltic" },
+      { code: "myth-finnish", label: "Finnish" },
+      { code: "myth-lithuanian", label: "Lithuanian" },
+    ],
+  },
+  {
+    name: "Ancient — Asia & Pacific",
+    langs: [
+      { code: "myth-hindu", label: "Hindu" },
+      { code: "myth-buddhist", label: "Buddhist" },
+      { code: "myth-japanese", label: "Japanese" },
+      { code: "myth-oceanic", label: "Oceanic" },
+      { code: "myth-polynesian", label: "Polynesian" },
+      { code: "myth-melanesian", label: "Melanesian" },
+      { code: "myth-aboriginal", label: "Aboriginal" },
+    ],
+  },
+  {
+    name: "Ancient — Americas & Africa",
+    langs: [
+      { code: "myth-aztec", label: "Aztec" },
+      { code: "myth-maya", label: "Maya" },
+      { code: "myth-mesoamerican", label: "Mesoamerican" },
+      { code: "myth-nativeamerican", label: "Native American" },
+      { code: "myth-southamerican", label: "South American" },
+      { code: "myth-african", label: "African" },
+      { code: "myth-yoruba", label: "Yoruba" },
+    ],
+  },
 ];
 
 export const LANG_DATA: Record<string, string[]> = {
@@ -153,4 +221,15 @@ export const LANG_DATA: Record<string, string[]> = {
   pl: namesPl, pt: namesPt, ro: namesRo, ru: namesRu, sk: namesSk,
   sl: namesSl, sq: namesSq, sr: namesSr, sv: namesSv, tr: namesTr,
   uk: namesUk, vi: namesVi, zh: namesZh,
+  "myth-african": mythAfrican, "myth-aboriginal": mythAboriginal,
+  "myth-aztec": mythAztec, "myth-baltic": mythBaltic, "myth-buddhist": mythBuddhist,
+  "myth-celtic": mythCeltic, "myth-egyptian": mythEgyptian, "myth-etruscan": mythEtruscan,
+  "myth-finnish": mythFinnish, "myth-greek": mythGreek, "myth-hindu": mythHindu,
+  "myth-japanese": mythJapanese, "myth-lithuanian": mythLithuanian, "myth-maya": mythMaya,
+  "myth-melanesian": mythMelanesian, "myth-mesoamerican": mythMesoamerican,
+  "myth-mesopotamian": mythMesopotamian, "myth-mideast": mythMideast,
+  "myth-nativeamerican": mythNativeamerican, "myth-norse": mythNorse,
+  "myth-oceanic": mythOceanic, "myth-polynesian": mythPolynesian,
+  "myth-roman": mythRoman, "myth-slavic": mythSlavic,
+  "myth-southamerican": mythSouthamerican, "myth-yoruba": mythYoruba,
 };
