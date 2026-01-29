@@ -3,29 +3,52 @@ import { NameGenerator } from "./generator";
 import namesEn from "./data/names-en.json";
 import namesEs from "./data/names-es.json";
 
-const datasets: Record<string, string[]> = { en: namesEn, es: namesEs };
+const corpora: Record<string, NameCorpus> = {};
+for (const [lang, names] of Object.entries({ en: namesEn, es: namesEs } as Record<string, string[]>)) {
+  const c = new NameCorpus();
+  c.learn(names);
+  corpora[lang] = c;
+}
 
-let corpus = new NameCorpus();
-corpus.learn(namesEn);
-let generator = new NameGenerator(corpus);
+let corpus: NameCorpus;
+let generator: NameGenerator;
 
+const mixInfo = document.getElementById("mix-info") as HTMLParagraphElement;
 const btn = document.getElementById("generate") as HTMLButtonElement;
 const list = document.getElementById("names") as HTMLUListElement;
 const slider = document.getElementById("syllables") as HTMLInputElement;
 const sylVal = document.getElementById("syl-val") as HTMLSpanElement;
 const status = document.getElementById("status") as HTMLParagraphElement;
 const prefixInput = document.getElementById("prefix") as HTMLInputElement;
-const datasetSelect = document.getElementById("dataset") as HTMLSelectElement;
+const weightSliders = document.querySelectorAll<HTMLInputElement>(".lang-weight");
+
+function rebuildCorpus(): void {
+  const langs: string[] = [];
+  const weights: number[] = [];
+  weightSliders.forEach((s) => {
+    langs.push(s.dataset.lang!);
+    weights.push(parseInt(s.value, 10));
+  });
+  corpus = NameCorpus.blendMany(
+    langs.map((l) => corpora[l]),
+    weights,
+  );
+  generator = new NameGenerator(corpus);
+
+  const total = weights.reduce((s, w) => s + w, 0) || 1;
+  const pcts = langs.map((l, i) => `${l.toUpperCase()} ${Math.round((weights[i] / total) * 100)}%`);
+  mixInfo.textContent = `Mix: ${pcts.join(" / ")}`;
+}
 
 slider.addEventListener("input", () => {
   sylVal.textContent = slider.value;
 });
 
-datasetSelect.addEventListener("change", () => {
-  corpus = new NameCorpus();
-  corpus.learn(datasets[datasetSelect.value]);
-  generator = new NameGenerator(corpus);
-  render();
+weightSliders.forEach((s) => {
+  s.addEventListener("input", () => {
+    rebuildCorpus();
+    render();
+  });
 });
 
 function render(): void {
@@ -36,5 +59,6 @@ function render(): void {
   status.textContent = `Trained on ${corpus.totalNames} names`;
 }
 
+rebuildCorpus();
 btn.addEventListener("click", render);
 render();

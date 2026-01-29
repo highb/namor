@@ -88,6 +88,49 @@ export class NameCorpus {
     return entries[entries.length - 1][0];
   }
 
+  static blendMany(corpora: NameCorpus[], weights: number[]): NameCorpus {
+    const result = new NameCorpus();
+    const totalWeight = weights.reduce((s, w) => s + w, 0) || 1;
+    const norm = weights.map((w) => w / totalWeight);
+
+    const blendFreq = (maps: FreqMap[]): FreqMap => {
+      const out: FreqMap = {};
+      const totals = maps.map(
+        (m) => Object.values(m).reduce((s, v) => s + v, 0) || 1,
+      );
+      const allKeys = new Set(maps.flatMap((m) => Object.keys(m)));
+      for (const key of allKeys) {
+        let val = 0;
+        for (let i = 0; i < maps.length; i++) {
+          val += ((maps[i][key] ?? 0) / totals[i]) * norm[i];
+        }
+        out[key] = val;
+      }
+      return out;
+    };
+
+    const blendBigram = (bmaps: BigramMap[]): BigramMap => {
+      const out: BigramMap = {};
+      const allCtx = new Set(bmaps.flatMap((m) => Object.keys(m)));
+      for (const ctx of allCtx) {
+        out[ctx] = blendFreq(bmaps.map((m) => m[ctx] ?? {}));
+      }
+      return out;
+    };
+
+    result.onsets = blendFreq(corpora.map((c) => c.onsets));
+    result.nuclei = blendFreq(corpora.map((c) => c.nuclei));
+    result.codas = blendFreq(corpora.map((c) => c.codas));
+    result.finalCodas = blendFreq(corpora.map((c) => c.finalCodas));
+    result.onsetToNucleus = blendBigram(corpora.map((c) => c.onsetToNucleus));
+    result.nucleusToCoda = blendBigram(corpora.map((c) => c.nucleusToCoda));
+    result.codaToOnset = blendBigram(corpora.map((c) => c.codaToOnset));
+    result.totalNames = Math.round(
+      corpora.reduce((s, c, i) => s + c.totalNames * norm[i], 0),
+    );
+    return result;
+  }
+
   sampleSyllable(index: number, totalSyllables: number, prevCoda?: string): Syllable {
     const onset = this.sample(this.onsets, this.codaToOnset, prevCoda);
     const nucleus = this.sample(this.nuclei, this.onsetToNucleus, onset);
