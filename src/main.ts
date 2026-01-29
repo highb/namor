@@ -20,6 +20,15 @@ const sylVal = document.getElementById("syl-val") as HTMLSpanElement;
 const status = document.getElementById("status") as HTMLParagraphElement;
 const prefixInput = document.getElementById("prefix") as HTMLInputElement;
 const langControls = document.getElementById("lang-controls") as HTMLDivElement;
+const resetBtn = document.getElementById("reset-lang") as HTMLButtonElement;
+
+// Detect browser language, fall back to "en"
+function detectBrowserLang(): string {
+  const raw = navigator.language?.split("-")[0]?.toLowerCase() ?? "en";
+  return raw in LANG_DATA ? raw : "en";
+}
+
+const browserLang = detectBrowserLang();
 
 // Build language slider DOM
 for (const region of REGIONS) {
@@ -29,21 +38,30 @@ for (const region of REGIONS) {
   details.appendChild(summary);
 
   for (const lang of region.langs) {
-    const label = document.createElement("label");
+    const row = document.createElement("div");
+    row.className = "lang-row";
+    const span = document.createElement("span");
+    span.className = "lang-label";
+    span.textContent = lang.label;
     const input = document.createElement("input");
     input.type = "range";
     input.className = "lang-weight";
     input.dataset.lang = lang.code;
     input.min = "0";
     input.max = "100";
-    input.value = lang.code === "en" ? "100" : "0";
-    label.textContent = lang.label + " ";
-    label.appendChild(input);
-    details.appendChild(label);
+    input.value = lang.code === browserLang ? "100" : "0";
+    span.addEventListener("click", () => {
+      input.value = parseInt(input.value, 10) < 100 ? "100" : "0";
+      rebuildCorpus();
+      render();
+    });
+    row.appendChild(span);
+    row.appendChild(input);
+    details.appendChild(row);
   }
 
   // Auto-open regions that have non-zero defaults
-  if (region.langs.some((l) => l.code === "en")) {
+  if (region.langs.some((l) => l.code === browserLang)) {
     details.open = true;
   }
 
@@ -79,6 +97,7 @@ function rebuildCorpus(): void {
 
 slider.addEventListener("input", () => {
   sylVal.textContent = slider.value;
+  render();
 });
 
 langControls.addEventListener("input", (e) => {
@@ -95,6 +114,23 @@ function render(): void {
   list.innerHTML = batch.map((n) => `<li>${n}</li>`).join("");
   status.textContent = `Trained on ${corpus.totalNames} names`;
 }
+
+function resetToBrowserLang(): void {
+  const lang = detectBrowserLang();
+  for (const s of getWeightSliders()) {
+    s.value = s.dataset.lang === lang ? "100" : "0";
+  }
+  // Open the matching details group, close others
+  const allDetails = langControls.querySelectorAll("details");
+  const allLangs = REGIONS.map((r) => ({ name: r.name, codes: r.langs.map((l) => l.code) }));
+  allDetails.forEach((d, i) => {
+    d.open = allLangs[i]?.codes.includes(lang) ?? false;
+  });
+  rebuildCorpus();
+  render();
+}
+
+resetBtn.addEventListener("click", resetToBrowserLang);
 
 rebuildCorpus();
 btn.addEventListener("click", render);
