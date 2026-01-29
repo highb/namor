@@ -7,7 +7,7 @@
  */
 
 import { NameCorpus } from "../src/corpus";
-import names from "../src/data/names.json";
+import names from "../src/data/names-en.json";
 
 // Pre-compute all frequency tables
 const corpus = new NameCorpus();
