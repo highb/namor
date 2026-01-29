@@ -8,8 +8,9 @@ export class NameGenerator {
     this.corpus = corpus;
   }
 
-  generate(syllableCount: number): string {
-    const maxAttempts = 50;
+  generate(syllableCount: number, prefix = ""): string {
+    const lowerPrefix = prefix.toLowerCase();
+    const maxAttempts = prefix ? 200 : 50;
     for (let attempt = 0; attempt < maxAttempts; attempt++) {
       const syllables: Syllable[] = [];
       for (let i = 0; i < syllableCount; i++) {
@@ -21,6 +22,7 @@ export class NameGenerator {
 
       const name = syllables.map((s) => s.onset + s.nucleus + s.coda).join("");
       if (name.length < 2 || name.length > 12) continue;
+      if (lowerPrefix && !name.startsWith(lowerPrefix)) continue;
 
       return name.charAt(0).toUpperCase() + name.slice(1);
     }
@@ -28,11 +30,11 @@ export class NameGenerator {
     return "Namora";
   }
 
-  generateBatch(count: number, syllableCount: number): string[] {
+  generateBatch(count: number, syllableCount: number, prefix = ""): string[] {
     const names = new Set<string>();
     let safety = 0;
     while (names.size < count && safety < count * 10) {
-      names.add(this.generate(syllableCount));
+      names.add(this.generate(syllableCount, prefix));
       safety++;
     }
     return [...names];
