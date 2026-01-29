@@ -1,6 +1,6 @@
 # Namor
 
-Corpus-based pronounceable name generator that runs entirely in the browser.
+Corpus-based English-speaker pronounceable name generator that runs entirely in the browser.
 
 **[Live Demo](https://highb.github.io/namor/)** | **[Download Standalone HTML](https://highb.github.io/namor/standalone.html)**
 
@@ -72,7 +72,7 @@ namor/
 └── README.md
 ```
 
-## Sources for Further Reading
+## Sources for Further Reading (Might be hallucinations)
 
 ### Foundational Linguistics
 

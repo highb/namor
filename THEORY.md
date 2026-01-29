@@ -1,5 +1,7 @@
 # The Linguistic Theory Behind Pronounceable Name Generation
 
+__By Claude Sonnet-4.5__
+
 ## Why Most Name Generators Suck
 
 Traditional "random name generators" typically work by either:
@@ -206,7 +208,7 @@ Could weight syllables by position and stress preference.
 - Verify against existing name databases (avoid generating "John")
 - More sophisticated sonority violation detection
 
-## References
+## References (Might be hallucinations)
 
 - Clements, G. N. (1990). "The role of the sonority cycle in core syllabification." *Papers in Laboratory Phonology I*, 283-333.
 - Kahn, D. (1976). *Syllable-based generalizations in English phonology*. MIT dissertation.
