@@ -27,7 +27,7 @@ export class NameGenerator {
       return name.charAt(0).toUpperCase() + name.slice(1);
     }
     // Fallback
-    return "Namora";
+    return "🙊";
   }
 
   generateBatch(count: number, syllableCount: number, prefix = ""): string[] {
