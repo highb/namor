@@ -49,6 +49,17 @@
       border: 1px solid #e0e0e0;
     }
     #status { font-size: 0.85rem; color: #888; margin-top: 1rem; }
+    #lang-controls { margin-bottom: 0.75rem; }
+    #lang-controls details { margin-bottom: 0.25rem; }
+    #lang-controls summary {
+      cursor: pointer; font-weight: 600; font-size: 0.9rem;
+      padding: 0.25rem 0; color: #444;
+    }
+    #lang-controls label {
+      display: flex; align-items: center; gap: 0.5rem;
+      font-size: 0.85rem; color: #555; padding: 0.15rem 0 0.15rem 1rem;
+    }
+    #lang-controls input[type="range"] { width: 100px; }
   </style>
 </head>
 <body>
@@ -62,11 +73,8 @@
     </label>
     <input type="text" id="prefix" placeholder="Starts with..." style="padding: 0.4rem 0.6rem; font-size: 0.9rem; border: 1px solid #ccc; border-radius: 4px; width: 120px;" />
   </div>
-  <div class="controls" style="flex-direction: column; align-items: flex-start; gap: 0.5rem;">
-    <label>EN <input type="range" class="lang-weight" data-lang="en" min="0" max="100" value="100" /></label>
-    <label>ES <input type="range" class="lang-weight" data-lang="es" min="0" max="100" value="0" /></label>
-    <p id="mix-info" style="font-size: 0.85rem; color: #888;"></p>
-  </div>
+  <div id="lang-controls"></div>
+  <p id="mix-info" style="font-size: 0.85rem; color: #888; margin-bottom: 1rem;"></p>
   <ul class="names-list" id="names"></ul>
   <p id="status"></p>
   <p style="margin-top: 1.5rem; font-size: 0.85rem; color: #888;">

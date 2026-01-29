@@ -60,7 +60,7 @@ namor/
 │   ├── main.ts               # Vite app entry point (UI wiring)
 │   ├── index.html            # Vite app page
 │   └── data/
-│       └── names.json        # Training corpus (500+ names)
+│       └── names-*.json      # 43 language corpora (MatthiasWinkelmann/firstname-database)
 ├── scripts/
 │   └── build-standalone.ts   # Builds self-contained HTML with inlined
 │                             # pre-computed corpus data
@@ -91,10 +91,13 @@ namor/
 - Coleman, J. S. & Pierrehumbert, J. (1997). "Stochastic phonological grammars and acceptability." *Computational Phonology*, 49-56.
 - Sejnowski, T. J. & Rosenberg, C. R. (1987). "Parallel networks that learn to pronounce English text." *Complex Systems*, 1, 145-168.
 
-### Datasets and Tools
+### Training Corpora
+
+All 43 language corpora (`names-*.json`) are extracted from [MatthiasWinkelmann/firstname-database](https://github.com/MatthiasWinkelmann/firstname-database), a curated multinational first name database (GNU Free Documentation License).
+
+### Other Datasets and Tools
 
 - [CMU Pronouncing Dictionary](http://www.speech.cs.cmu.edu/cgi-bin/cmudict) - 134,000+ English words mapped to phoneme sequences
-- [SSA Baby Names Database](https://www.ssa.gov/oact/babynames/names.zip) - US baby names from 1880-present with frequency counts
 - [Wiktionary](https://en.wiktionary.org/) - IPA pronunciations for many names across languages
 
 ### Accessible Introductions
