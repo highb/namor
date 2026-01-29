@@ -69,7 +69,9 @@ for (const region of REGIONS) {
 }
 
 function getWeightSliders(): HTMLInputElement[] {
-  return Array.from(document.querySelectorAll<HTMLInputElement>(".lang-weight"));
+  return Array.from(
+    document.querySelectorAll<HTMLInputElement>(".lang-weight"),
+  );
 }
 
 function rebuildCorpus(): void {
@@ -122,7 +124,10 @@ function resetToBrowserLang(): void {
   }
   // Open the matching details group, close others
   const allDetails = langControls.querySelectorAll("details");
-  const allLangs = REGIONS.map((r) => ({ name: r.name, codes: r.langs.map((l) => l.code) }));
+  const allLangs = REGIONS.map((r) => ({
+    name: r.name,
+    codes: r.langs.map((l) => l.code),
+  }));
   allDetails.forEach((d, i) => {
     d.open = allLangs[i]?.codes.includes(lang) ?? false;
   });

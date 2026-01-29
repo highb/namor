@@ -70,7 +70,10 @@ export class NameCorpus {
       map = {};
       const biTotal = Object.values(bi).reduce((a, b) => a + b, 0);
       const uniTotal = Object.values(unigram).reduce((a, b) => a + b, 0);
-      for (const key of new Set([...Object.keys(bi), ...Object.keys(unigram)])) {
+      for (const key of new Set([
+        ...Object.keys(bi),
+        ...Object.keys(unigram),
+      ])) {
         const biWeight = ((bi[key] ?? 0) / biTotal) * 0.7;
         const uniWeight = ((unigram[key] ?? 0) / uniTotal) * 0.3;
         map[key] = biWeight + uniWeight;
@@ -131,7 +134,11 @@ export class NameCorpus {
     return result;
   }
 
-  sampleSyllable(index: number, totalSyllables: number, prevCoda?: string): Syllable {
+  sampleSyllable(
+    index: number,
+    totalSyllables: number,
+    prevCoda?: string,
+  ): Syllable {
     const onset = this.sample(this.onsets, this.codaToOnset, prevCoda);
     const nucleus = this.sample(this.nuclei, this.onsetToNucleus, onset);
     const isFinal = index === totalSyllables - 1;
